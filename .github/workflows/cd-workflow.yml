@@ -1,9 +1,8 @@
 name: 07-2. CD Workflow 
 
 on:
-  # push:
-  #   branches: [main]
-  workflow_dispatch:
+  push:
+     branches: [main]
 
 env:
   AZURE_WEBAPP_NAME: your-app-name    # set this to your application's name
@@ -38,7 +37,10 @@ jobs:
       with:
         name: node-app
         path: .
-
+    - name: Download artifact from build job
+      uses: actions/download-artifact@v4
+      with:
+        name: node-app
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
